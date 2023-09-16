@@ -18,10 +18,15 @@
 			<input type="number" th:field="*{publicationYear}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<label for="isbn">Isbn</label>
-			<input type="number" id="isbn" th:field="*{isbn}" />
+			<input type="text" id="isbn" th:field="*{isbn}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<label for="price">Price</label>
-			<input type="number" id="price" th:field="*{price}" />
+			<input id="price" th:field="*{price}" />
+			<div style="clear: both; display: block; height: 10px;"></div>						
+		  	<label for="categorylist">Category</label>
+			 <select id="categorylist" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categorys}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select>
 			<input type="submit" value="Save"></input>
 		</form>
 	</div>

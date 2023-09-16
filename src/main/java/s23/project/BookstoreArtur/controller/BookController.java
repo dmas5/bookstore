@@ -9,27 +9,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import s23.project.BookstoreArtur.domain.Book;
 import s23.project.BookstoreArtur.domain.BookRepository;
+import s23.project.BookstoreArtur.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	
 	@Autowired
-	private BookRepository repository; 
+	private BookRepository repository;
+	@Autowired
+	private CategoryRepository crepository; 
 	
     @RequestMapping(value= {"/", "/booklist"})
-    public String studentList(Model model) {	
+    public String bookList(Model model) {	
         model.addAttribute("books", repository.findAll());
         return "booklist";
     }
   
     @RequestMapping(value = "/add")
-    public String addStudent(Model model){
+    public String addBook(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categorys", crepository.findAll());
         return "addbook";
     }     
     
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Book book){
+    public String saveBook(Book book){
         repository.save(book);
         return "redirect:booklist";
     }    
@@ -43,15 +47,8 @@ public class BookController {
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public String editBook(@PathVariable("id") Long bookId, Model model){
     	model.addAttribute("book", repository.findById(bookId));
+    	model.addAttribute("categorys", crepository.findAll());
         return "editbook";
     }
-//  @RequestMapping(value = "/saveedit", method = RequestMethod.POST)
-//  public String addEditedStudent(Book book,Model model) {
-//	  
-//  		model.addAttribute("book",book);
-//      return "booklist";
-//  }
-	
-
 
 }
