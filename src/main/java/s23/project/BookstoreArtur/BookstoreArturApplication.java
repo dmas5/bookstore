@@ -33,6 +33,7 @@ public class BookstoreArturApplication {
 			crepository.save(new Category("Biography"));
 			
 			repository.save(new Book("Sinuhe", "Mika Waltari", 1945,"457363-4756",10.95,crepository.findByName("History").get(0)));
+			repository.save(new Book("Seitseman veljesta", "Aleksis Kivi", 1870,"857555-822",7.95,crepository.findByName("History").get(0)));
 			
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
