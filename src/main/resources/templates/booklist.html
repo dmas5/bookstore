@@ -5,6 +5,13 @@
 </head>
 <body>
 	<h1>Books</h1>
+		<div class="col-md-4">
+		<i>Welcome <b sec:authentication="name"></b>, 
+        your role is <b sec:authentication="principal.authorities"></b>
+	</div>
+	<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign Out" class="btn btn-danger"/>
+	</form>
     <table>
 		<tr>
 		    <th>Title</th>
@@ -13,7 +20,7 @@
 		    <th>Isbn</th>
 		    <th>Price</th>
 		    <th>Category</th>
-		</tr>  
+		</tr> 
     	<tr th:each = "book : ${books}">
     		<td th:text="${book.title}"></td>
     		<td th:text="${book.author}"></td>
@@ -22,7 +29,7 @@
     		<td th:text="${book.price}"></td>
     		<td th:text="${book.category.name}"></td>
     		<td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td> 
-    		<td><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>    		
+    		<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>    		
     	</tr>
      </table>
      <a href="/add">Add Book</a>    	
